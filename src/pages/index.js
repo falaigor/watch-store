@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Center, Container, Grid, Heading, VStack } from "@chakra-ui/react";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import { ProductCard } from "../components/ProductCard";
+import { ProductCard } from "../components/ProductCard/ProductCard";
 
 export default function Home() {
   return (

@@ -11,7 +11,7 @@ import {
   InputRightElement,
   InputGroup,
 } from "@chakra-ui/react";
-import { CartItem } from "../CartItem";
+import { CartItem } from "../CartItem/CartItem";
 
 export const Cart = ({ isOpen, onClose, finalFocusRef }) => {
   return (

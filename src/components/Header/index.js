@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Flex, Text, Heading, Button, useDisclosure } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
-import { Cart } from "../Cart";
+import { Cart } from "../Cart/Cart";
 import { Search } from "../Search/Search";
 
 export const Header = () => {

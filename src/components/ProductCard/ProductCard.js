@@ -7,6 +7,7 @@ export const ProductCard = () => {
 
   return (
     <Flex
+      data-testid="product-card"
       flexDirection="column"
       backgroundColor="gray.50"
       padding={5}

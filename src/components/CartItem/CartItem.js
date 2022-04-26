@@ -35,7 +35,13 @@ export const CartItem = () => {
             <Button minWidth="20px" height="20px" padding={1} {...inc}>
               +
             </Button>
-            <Input border="none" width="20px" paddingInline={0} {...input} />
+            <Input
+              textAlign="center"
+              border="none"
+              width="20px"
+              paddingInline={0}
+              {...input}
+            />
             <Button minWidth="20px" height="20px" padding={1} {...dec}>
               -
             </Button>
