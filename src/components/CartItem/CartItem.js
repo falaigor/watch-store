@@ -1,54 +1,47 @@
-import {
-  Button,
-  Flex,
-  HStack,
-  Input,
-  Text,
-  useNumberInput,
-  Wrap,
-} from "@chakra-ui/react";
+import { useState } from "react";
+import { Button, Flex, HStack, Text, Wrap } from "@chakra-ui/react";
 import Image from "next/image";
 
-export const CartItem = () => {
-  const urlImage =
-    "https://cdn.shopify.com/s/files/1/0540/3036/8945/products/Relogio_Rolex_Submariner_Blue1M@2x.jpg";
+export const CartItem = ({ product }) => {
+  const [quantity, setQuantity] = useState(1);
 
-  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
-    useNumberInput({
-      step: 1,
-      defaultValue: 1,
-      min: 1,
-      max: 99,
-    });
-
-  const inc = getIncrementButtonProps();
-  const dec = getDecrementButtonProps();
-  const input = getInputProps();
+  const increase = () => setQuantity(quantity + 1);
+  const decrease = () => setQuantity(quantity > 0 ? quantity - 1 : 0);
 
   return (
-    <Flex justifyContent="space-between" marginY={5}>
+    <Flex data-testid="cart-item" justifyContent="space-between" marginY={5}>
       <Flex>
-        <Image src={urlImage} alt="Rolex" width="100px" height="100px" />
+        <Image
+          data-testid="image"
+          src={product.image}
+          alt={product.title}
+          width="100px"
+          height="100px"
+        />
         <Wrap marginLeft={2}>
-          <Text>Cart Item</Text>
+          <Text>{product.title}</Text>
           <HStack maxW="320px">
-            <Button minWidth="20px" height="20px" padding={1} {...inc}>
+            <Button
+              minWidth="20px"
+              height="20px"
+              padding={1}
+              onClick={() => decrease()}
+            >
               +
             </Button>
-            <Input
-              textAlign="center"
-              border="none"
-              width="20px"
-              paddingInline={0}
-              {...input}
-            />
-            <Button minWidth="20px" height="20px" padding={1} {...dec}>
+            <Text data-testid="quantity">{quantity}</Text>
+            <Button
+              minWidth="20px"
+              height="20px"
+              padding={1}
+              onClick={() => increase()}
+            >
               -
             </Button>
           </HStack>
         </Wrap>
       </Flex>
-      <Text>$999</Text>
+      <Text>${product.price}</Text>
     </Flex>
   );
 };

@@ -1,0 +1,19 @@
+[{
+    "id": 1,
+    "title": "Um titlo",
+    "price": "22.00",
+    "image": "image.jpg"
+  },
+  {
+    "id": 2,
+    "title": "titulo dois",
+    "price": "22.00",
+    "image": "image.jpg"
+  },
+  {
+    "id": 3,
+    "title": "titulo tres",
+    "price": "22.00",
+    "image": "image.jpg"
+  }
+]

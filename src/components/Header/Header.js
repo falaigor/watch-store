@@ -11,6 +11,7 @@ export const Header = () => {
   return (
     <>
       <Flex
+        data-testid="header"
         backgroundColor="#78C752"
         height="35px"
         alignItems="center"

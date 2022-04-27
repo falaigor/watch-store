@@ -29,8 +29,6 @@ export const Cart = ({ isOpen, onClose, finalFocusRef }) => {
 
         <DrawerBody>
           <CartItem />
-          <CartItem />
-          <CartItem />
 
           <InputGroup size="md">
             <Input pr="4.5rem" type="text" placeholder="Add promocode" />

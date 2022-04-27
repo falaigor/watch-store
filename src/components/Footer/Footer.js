@@ -3,6 +3,7 @@ import { Flex, Text } from "@chakra-ui/react";
 export const Footer = () => {
   return (
     <Flex
+      data-testid="footer"
       backgroundColor="gray.100"
       height="60px"
       marginY="10"

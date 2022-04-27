@@ -1,10 +1,8 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
+import { FiShoppingCart } from "react-icons/fi";
 
-export const ProductCard = () => {
-  const urlImage =
-    "https://cdn.shopify.com/s/files/1/0540/3036/8945/products/Relogio_Rolex_Submariner_Blue1M@2x.jpg";
-
+export const ProductCard = ({ product }) => {
   return (
     <Flex
       data-testid="product-card"
@@ -13,13 +11,24 @@ export const ProductCard = () => {
       padding={5}
       borderRadius={4}
     >
-      <Image src={urlImage} alt="Rolex" width="250px" height="250px" />
+      <Image
+        src={product.image}
+        data-testid="image"
+        alt="Rolex"
+        width="250px"
+        height="250px"
+      />
       <Text fontSize="lg" fontWeight="500" marginTop="10px">
-        Nome do Produto
+        {product.title}
       </Text>
       <Text color="#78C752" fontWeight="600">
-        $999
+        ${product.price}
       </Text>
+
+      <Button onClick={() => addToCart(product)} marginTop={5}>
+        <FiShoppingCart style={{ marginRight: "10px" }} />
+        Add to cart
+      </Button>
     </Flex>
   );
 };

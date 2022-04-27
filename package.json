@@ -8,13 +8,15 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --env=jsdom",
-    "test:watch": "jest --watchAll --env=jsdom"
+    "test:watch": "jest --watchAll --env=jsdom",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "axios": "^0.27.1",
     "framer-motion": "^6",
     "next": "12.1.5",
     "react": "^18.0.0",
@@ -22,6 +24,7 @@
     "react-icons": "^4.3.1"
   },
   "devDependencies": {
+    "@ngneat/falso": "^5.0.0",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
@@ -29,8 +32,10 @@
     "babel-jest": "^28.0.0",
     "eslint": "8.14.0",
     "eslint-config-next": "12.1.5",
+    "faker": "^6.6.6",
     "jest": "^28.0.0",
     "jest-dom": "^4.0.0",
-    "jest-environment-jsdom": "^28.0.0"
+    "jest-environment-jsdom": "^28.0.0",
+    "miragejs": "^0.1.43"
   }
 }
