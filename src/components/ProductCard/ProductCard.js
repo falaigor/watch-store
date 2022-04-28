@@ -1,8 +1,7 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
-import Image from "next/image";
 import { FiShoppingCart } from "react-icons/fi";
 
-export const ProductCard = ({ product }) => {
+export const ProductCard = ({ product, addToCart }) => {
   return (
     <Flex
       data-testid="product-card"
@@ -11,10 +10,10 @@ export const ProductCard = ({ product }) => {
       padding={5}
       borderRadius={4}
     >
-      <Image
+      <img
         src={product.image}
         data-testid="image"
-        alt="Rolex"
+        alt={product.title}
         width="250px"
         height="250px"
       />

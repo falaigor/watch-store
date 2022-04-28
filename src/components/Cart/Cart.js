@@ -11,24 +11,24 @@ import {
   InputRightElement,
   InputGroup,
 } from "@chakra-ui/react";
+import { useCartStore } from "../../../store/cart";
 import { CartItem } from "../CartItem/CartItem";
 
-export const Cart = ({ isOpen, onClose, finalFocusRef }) => {
+export const Cart = ({ isOpen, onClose }) => {
+  const products = useCartStore((store) => store.state.products);
+
   return (
-    <Drawer
-      isOpen={isOpen}
-      placement="right"
-      onClose={onClose}
-      finalFocusRef={finalFocusRef}
-    >
+    <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
       <DrawerOverlay />
-      <DrawerContent>
-        <DrawerCloseButton />
+      <DrawerContent data-testid="cart">
+        <DrawerCloseButton data-testid="close-button" />
         <DrawerHeader>You Cart</DrawerHeader>
         <Divider />
 
         <DrawerBody>
-          <CartItem />
+          {products.map((product) => (
+            <CartItem product={product} key={product.id} />
+          ))}
 
           <InputGroup size="md">
             <Input pr="4.5rem" type="text" placeholder="Add promocode" />

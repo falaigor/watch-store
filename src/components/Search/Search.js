@@ -5,8 +5,18 @@ import { Input, InputGroup, InputRightElement, Stack } from "@chakra-ui/react";
 export const Search = ({ doSearch }) => {
   const [term, setTerm] = useState("");
 
+  const submitHandler = (event) => {
+    event.preventDefault();
+    doSearch(term);
+  };
+
+  const inputHandler = (e) => {
+    setTerm(e.target.value);
+    if (e.target.value == "") doSearch("");
+  };
+
   return (
-    <form onSubmit={() => doSearch(term)} name="search-form">
+    <form onSubmit={submitHandler} name="search-form">
       <Stack width="500px">
         <InputGroup>
           <Input
@@ -15,7 +25,7 @@ export const Search = ({ doSearch }) => {
             placeholder="Search"
             type="search"
             value={term}
-            onChange={(e) => setTerm(e.target.value)}
+            onInput={inputHandler}
           />
           <InputRightElement
             backgroundColor="#78C752"

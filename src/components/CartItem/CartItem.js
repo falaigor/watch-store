@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Button, Flex, HStack, Text, Wrap } from "@chakra-ui/react";
-import Image from "next/image";
 
 export const CartItem = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
@@ -11,7 +10,7 @@ export const CartItem = ({ product }) => {
   return (
     <Flex data-testid="cart-item" justifyContent="space-between" marginY={5}>
       <Flex>
-        <Image
+        <img
           data-testid="image"
           src={product.image}
           alt={product.title}

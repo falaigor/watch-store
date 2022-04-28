@@ -1,3 +1,4 @@
+/*istanbul ignore file*/
 import { ChakraProvider } from "@chakra-ui/react";
 import { makeServer } from "../miragejs/server";
 

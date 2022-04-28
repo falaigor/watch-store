@@ -1,12 +1,13 @@
-import { useRef } from "react";
-import { Flex, Text, Heading, Button, useDisclosure } from "@chakra-ui/react";
+import { useRef, useState } from "react";
+import { useCartStore } from "../../../store/cart";
+import { Flex, Text, Heading, Button } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
 import { Cart } from "../Cart/Cart";
 import { Search } from "../Search/Search";
 
-export const Header = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
+export const Header = ({ doSearch }) => {
+  const open = useCartStore((store) => store.state.open);
+  const toggle = useCartStore((store) => store.actions.toggle);
 
   return (
     <>
@@ -34,15 +35,15 @@ export const Header = () => {
             Watch Store
           </Heading>
 
-          <Search />
+          <Search doSearch={doSearch} />
 
-          <Button ref={btnRef} onClick={onOpen} backgroundColor="#fff">
+          <Button onClick={toggle} backgroundColor="#fff">
             <FiShoppingCart stroke="gray" fontSize="20px" />
           </Button>
         </Flex>
       </Flex>
 
-      <Cart isOpen={isOpen} onClose={onClose} finalFocusRef={btnRef} />
+      <Cart isOpen={open} onClose={toggle} />
     </>
   );
 };
