@@ -1,5 +1,12 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { renderHook, act } from "@testing-library/react-hooks";
+import { useCartStore } from "../../../store/cart";
+import { setAutoFreeze } from "immer";
+import userEvent from "@testing-library/user-event";
+
 import { CartItem } from "./CartItem";
+
+setAutoFreeze(false);
 
 const product = {
   title: "um relogio bonito",
@@ -11,6 +18,19 @@ const product = {
 const renderCartItem = () => render(<CartItem product={product} />);
 
 describe("CartItem", () => {
+  let result;
+  let reset;
+
+  beforeEach(() => {
+    result = renderHook(() => useCartStore()).result;
+    reset = result.current.actions.reset;
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    act(() => reset());
+  });
+
   it("should render CartItem component", () => {
     renderCartItem();
 
@@ -32,46 +52,42 @@ describe("CartItem", () => {
     expect(image).toHaveProperty("alt", product.title);
   });
 
-  it("should display 1 as initial quantity", () => {
+  it("should call remove() when button is clicked", async () => {
+    const spy = jest.spyOn(result.current.actions, "remove");
+
     renderCartItem();
 
-    expect(screen.getByTestId("quantity").textContent).toBe("1");
+    const button = screen.getByTestId("button-remove");
+
+    await userEvent.click(button);
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(product);
   });
 
-  it("should increase quantity by 1 when second button is clicked", async () => {
+  it("should call increase() when button is clicked", async () => {
+    const spy = jest.spyOn(result.current.actions, "increase");
+
     renderCartItem();
 
-    const [, button] = screen.getAllByRole("button");
+    const button = screen.getByTestId("button-increase");
 
-    await fireEvent.click(button);
+    await userEvent.click(button);
 
-    expect(screen.getByTestId("quantity").textContent).toBe("2");
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(product);
   });
 
-  it("should decrease quantity by 1 when first button is clicked", async () => {
+  it("should call decrease() when button is clicked", async () => {
+    const spy = jest.spyOn(result.current.actions, "decrease");
+
     renderCartItem();
 
-    const [buttonDecrease, buttonIncrease] = screen.getAllByRole("button");
-    const quantity = screen.getByTestId("quantity");
+    const button = screen.getByTestId("button-decrease");
 
-    await fireEvent.click(buttonIncrease);
-    expect(quantity.textContent).toBe("2");
+    await userEvent.click(button);
 
-    await fireEvent.click(buttonDecrease);
-    expect(quantity.textContent).toBe("1");
-  });
-
-  it("should not go below zero in the quantity", async () => {
-    renderCartItem();
-
-    const [buttonDecrease] = screen.getAllByRole("button");
-    const quantity = screen.getByTestId("quantity");
-
-    expect(quantity.textContent).toBe("1");
-
-    await fireEvent.click(buttonDecrease);
-    await fireEvent.click(buttonDecrease);
-
-    expect(quantity.textContent).toBe("0");
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(product);
   });
 });

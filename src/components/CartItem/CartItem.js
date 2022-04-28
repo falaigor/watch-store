@@ -1,46 +1,57 @@
-import { useState } from "react";
 import { Button, Flex, HStack, Text, Wrap } from "@chakra-ui/react";
+import { useCartStore } from "../../../store/cart";
 
 export const CartItem = ({ product }) => {
-  const [quantity, setQuantity] = useState(1);
-
-  const increase = () => setQuantity(quantity + 1);
-  const decrease = () => setQuantity(quantity > 0 ? quantity - 1 : 0);
+  const { remove, increase, decrease } = useCartStore((store) => store.actions);
 
   return (
-    <Flex data-testid="cart-item" justifyContent="space-between" marginY={5}>
-      <Flex>
-        <img
-          data-testid="image"
-          src={product.image}
-          alt={product.title}
-          width="100px"
-          height="100px"
-        />
-        <Wrap marginLeft={2}>
-          <Text>{product.title}</Text>
-          <HStack maxW="320px">
-            <Button
-              minWidth="20px"
-              height="20px"
-              padding={1}
-              onClick={() => decrease()}
-            >
-              +
-            </Button>
-            <Text data-testid="quantity">{quantity}</Text>
-            <Button
-              minWidth="20px"
-              height="20px"
-              padding={1}
-              onClick={() => increase()}
-            >
-              -
-            </Button>
-          </HStack>
-        </Wrap>
+    <Flex data-testid="cart-item" marginY={5} flexDirection="column">
+      <Flex justifyContent="space-between">
+        <Flex>
+          <img
+            data-testid="image"
+            src={product.image}
+            alt={product.title}
+            width="100px"
+            height="100px"
+          />
+          <Wrap marginLeft={2}>
+            <Text>{product.title}</Text>
+            <HStack maxW="320px">
+              <Button
+                data-testid="button-decrease"
+                minWidth="20px"
+                height="20px"
+                padding={1}
+                onClick={() => decrease(product)}
+              >
+                -
+              </Button>
+              <Text data-testid="quantity">{product.quantity}</Text>
+              <Button
+                data-testid="button-increase"
+                minWidth="20px"
+                height="20px"
+                padding={1}
+                onClick={() => increase(product)}
+              >
+                +
+              </Button>
+            </HStack>
+          </Wrap>
+        </Flex>
+        <Text>${product.price}</Text>
       </Flex>
-      <Text>${product.price}</Text>
+
+      <Button
+        data-testid="button-remove"
+        minWidth="20px"
+        height="20px"
+        marginTop={2}
+        onClick={() => remove(product)}
+      >
+        Remove product
+      </Button>
     </Flex>
   );
 };

@@ -6,6 +6,7 @@ module.exports = {
     "<rootDir>/src/components/**/*.js",
     "<rootDir>/src/pages/**/*.js",
     "<rootDir>/src/hooks/**/*.js",
+    "<rootDir>/store/**/*.js",
   ],
   transform: {
     "^.+\\.(js|jsx)$": "babel-jest",

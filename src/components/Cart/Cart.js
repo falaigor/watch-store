@@ -6,52 +6,56 @@ import {
   DrawerCloseButton,
   Divider,
   DrawerBody,
-  Input,
   Button,
-  InputRightElement,
-  InputGroup,
+  Text,
 } from "@chakra-ui/react";
 import { useCartStore } from "../../../store/cart";
 import { CartItem } from "../CartItem/CartItem";
 
 export const Cart = ({ isOpen, onClose }) => {
-  const products = useCartStore((store) => store.state.products);
+  const { products } = useCartStore((store) => store.state);
+  const { removeAll } = useCartStore((store) => store.actions);
+
+  const hasProducts = products.length > 0;
 
   return (
     <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent data-testid="cart">
         <DrawerCloseButton data-testid="close-button" />
-        <DrawerHeader>You Cart</DrawerHeader>
+        <DrawerHeader>
+          You Cart
+          {hasProducts && (
+            <Button
+              data-testid="button-clear-cart"
+              marginLeft={2}
+              onClick={() => removeAll()}
+            >
+              clear cart
+            </Button>
+          )}
+        </DrawerHeader>
         <Divider />
 
         <DrawerBody>
+          {!hasProducts && <Text>There are not items in the cart</Text>}
+
           {products.map((product) => (
             <CartItem product={product} key={product.id} />
           ))}
 
-          <InputGroup size="md">
-            <Input pr="4.5rem" type="text" placeholder="Add promocode" />
-            <InputRightElement width="4.5rem">
+          {hasProducts && (
+            <>
               <Button
-                h="1.75rem"
-                size="sm"
+                marginTop={4}
+                width="100%"
                 backgroundColor="#78C752"
-                onClick={() => console.log("teste")}
+                // onClick={() => console.log("teste")}
               >
-                Apply
+                Checkout
               </Button>
-            </InputRightElement>
-          </InputGroup>
-
-          <Button
-            marginTop={4}
-            width="100%"
-            backgroundColor="#78C752"
-            onClick={() => console.log("teste")}
-          >
-            Checkout
-          </Button>
+            </>
+          )}
         </DrawerBody>
       </DrawerContent>
     </Drawer>
